@@ -10,7 +10,7 @@ struct Organisation {
         var description: String
         var iscrizione: String
         var materiali: String
-        var notizieStoriche: String?
+        var notizieStoriche: String
         var image: String?
     }
     var employees: [Employee]
@@ -67,9 +67,16 @@ do {
     //Decoder
     let decoder = JSONDecoder()
     if let decodedOrganisation = try? decoder.decode(Organisation.self, from: data) {
+        print("Total number of employees: \(decodedOrganisation.employees.count)\n")
         for employee in decodedOrganisation.employees {
-            print(employee.designation)
-            print(employee.description, employee.iscrizione, employee.schedaTecnica, employee.image, employee.notizieStoriche)
+            print("\nDesignation: \(employee.designation)")
+            if let schedaTecnicaDict = employee.schedaTecnica {
+                print(schedaTecnicaDict)
+            }
+            print(employee.description, employee.iscrizione, employee.notizieStoriche)
+            if let image = employee.image {
+                print(image)
+            }
             
         }
     }
